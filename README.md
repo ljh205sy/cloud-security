@@ -2,11 +2,11 @@
 
 微服务开发基础框架
 
-项目地址：D:\VRV\nacos\V2.0-nacos\Micro-Service-Skeleton
+项目地址：D:\VRV\nacos\V2.0-nacos\cloud-security
+1. 使用nacos作为注册中心，配置中心
+2. 使用springsecurity+springcloud+oauth2 
+3. 使用rbac的方式进行鉴权，存在网络隔离，在zuul进行鉴权访问
 
-Master 版本注册中心和配置中心后续都会采用Nacos ,目前使用的Nacos版本为0.8。如需Eureka作为注册中心的请采用tags v2.0(https://github.com/babylikebird/Micro-Service-Skeleton/tree/v2.0)
-
-![image-20210316152008632](oauth2.assets/image-20210316152008632.png)
 
 ```shell
 SELECT t.client_id, t.`client_secret` , t.* FROM `oauth_client_details` t;
@@ -14,10 +14,9 @@ SELECT t.client_id, t.`client_secret` , t.* FROM `oauth_client_details` t;
 # t.client_secret=123456
 ```
 
+前提条件，熟悉springcloud, oauth2的相关基础知识
 1.哪个应用是通过clientid来识别，每个应用都会在服务提供商进行注册，ROLE_USER角色一定存在，ClientDetailsService
-
 2.你是在请求哪个用户给你授权，系统中的那个用户给予授权，UserDetailsService
-
 3.给你什么授权，scope进行
 
 
@@ -68,7 +67,6 @@ SELECT t.client_id, t.`client_secret` , t.* FROM `oauth_client_details` t;
 ## 代码测试
 
 访问后端api需要携带上token，支持如下两种形式
-
 1.放header方式
 
 ```shell
@@ -78,7 +76,7 @@ Authorization:Bearer xxx
 # 先走UserDetailsService.java 接口的实现类，然后在进入目标请求Controller的方法体。
 ```
 
-<img src="oauth2.assets/image-20210317141830223.png" alt="image-20210317141830223" style="zoom: 80%;" />
+<img src="./oauth2.assets/image-20210317141830223.png" alt="image-20210317141830223" style="zoom: 80%;" />
 
 
 
@@ -90,7 +88,7 @@ Authorization:Bearer xxx
 http://localhost:9060/d00002?access_token=XXX
 ```
 
-<img src="oauth2.assets/image-20210317142705832.png" alt="image-20210317142705832" style="zoom:80%;" />
+<img src="./oauth2.assets/image-20210317142705832.png" alt="image-20210317142705832" style="zoom:80%;" />
 
 针对zuul访问特殊说明：
 

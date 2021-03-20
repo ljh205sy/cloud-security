@@ -30,8 +30,13 @@ public class SecurityConfig extends ResourceServerConfigurerAdapter {
     @Autowired
     private RedisConnectionFactory redisConnectionFactory;
 
+    /**
+     *  Spring Security 与 OAuth2（资源服务器）
+     *  当资源服务器和认证服务器分离的时候，如果tokenStore使用的redis进行的存储，则需要注入redisTokenStore
+     *  https://www.jianshu.com/p/6dd03375224d
+     */
     @Bean
-    RedisTokenStore redisTokenStore(){
+    private RedisTokenStore redisTokenStore(){
         return new RedisTokenStore(redisConnectionFactory);
     }
 

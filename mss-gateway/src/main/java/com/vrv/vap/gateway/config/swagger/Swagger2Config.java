@@ -9,13 +9,7 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
-/**
- * Created with IntelliJ IDEA.
- * Description:
- * User: Mr.Yangxiufeng
- * Date: 2018-04-18
- * Time: 14:55
- */
+
 @Configuration
 @EnableSwagger2
 public class Swagger2Config {
@@ -30,7 +24,7 @@ public class Swagger2Config {
                 .title("说明文档")
                 .description("接口说明文档")
                 .termsOfServiceUrl("")
-                .contact(new Contact("杨秀峰","franky.yang@foxmail.com","franky.yang@foxmail.com"))
+                .contact(new Contact("测试用户","1604848393@qq.com","1604848393@qq.com"))
                 .version("1.0")
                 .build();
     }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.microservice.skeleton.upms.mapper.SysUserMapper">
-  <resultMap id="BaseResultMap" type="com.microservice.skeleton.upms.entity.SysUser">
+<mapper namespace="com.vrv.vap.upms.mapper.SysUserMapper">
+  <resultMap id="BaseResultMap" type="com.vrv.vap.upms.entity.SysUser">
     <!--
       WARNING - @mbg.generated
     -->
@@ -19,7 +19,7 @@
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
-  <resultMap id="userVoMap" type="com.microservice.skeleton.common.vo.UserVo">
+  <resultMap id="userVoMap" type="com.vrv.vap.common.vo.UserVo">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="avatar" jdbcType="VARCHAR" property="avatar" />
     <result column="username" jdbcType="VARCHAR" property="username" />

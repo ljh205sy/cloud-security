@@ -1,4 +1,4 @@
-package com.microservice.skeleton.monitor;
+package com.vrv.vap.monitor;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -1,7 +1,7 @@
-package com.microservice.skeleton.upms;
+package com.vrv.vap.upms;
 
-import com.microservice.skeleton.upms.entity.SysUser;
-import com.microservice.skeleton.upms.service.UserService;
+import com.vrv.vap.upms.entity.SysUser;
+import com.vrv.vap.upms.service.UserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mybatis.generator.api.MyBatisGenerator;

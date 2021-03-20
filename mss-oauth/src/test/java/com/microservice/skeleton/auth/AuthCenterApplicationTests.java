@@ -1,6 +1,6 @@
-package com.microservice.skeleton.auth;
+package com.vrv.vap.auth;
 
-import com.microservice.skeleton.auth.service.UserService;
+import com.vrv.vap.auth.service.UserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

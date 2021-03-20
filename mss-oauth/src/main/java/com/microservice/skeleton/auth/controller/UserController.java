@@ -18,6 +18,7 @@ public class UserController {
     private Logger logger = LoggerFactory.getLogger(getClass());
     @RequestMapping("/user")
     public Principal user(Principal user) {
+        logger.info("{}", user);
         return user;
     }
 

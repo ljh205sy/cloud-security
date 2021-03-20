@@ -71,7 +71,10 @@ public class PermissionServiceImpl implements PermissionService {
                 }
             }
         } else {
-            logger.info("匿名登录，没有访问权限，就算是ResourceServerConfigurerAdapter定义了权限！！！principal 返回的org.springframework.security.authentication.AnonymousAuthenticationToken");
+            logger.error("匿名登录，没有访问权限，就算是ResourceServerConfigurerAdapter定义了权限！！！principal 返回的org.springframework.security.authentication.AnonymousAuthenticationToken");
+        }
+        if(!hasPermission) {
+            logger.error("zuul进行拦截，判断无权限访问，请求requestUrl:{}  权限：{}", requestUrl, roleCodes);
         }
         return hasPermission;
     }

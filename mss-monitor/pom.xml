@@ -4,16 +4,15 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>com.microservice.skeleton</groupId>
-		<artifactId>Micro-Service-Skeleton-Parent</artifactId>
+		<groupId>com.vrv.vap</groupId>
+		<artifactId>cloud-security</artifactId>
 		<version>2.0.0</version>
 	</parent>
-	<artifactId>Micro-Service-Skeleton-Monitor</artifactId>
+	<artifactId>mss-monitor</artifactId>
 	<version>2.0.0</version>
 	<packaging>jar</packaging>
 
 	<name>mss-monitor</name>
-	<description>Demo project for Spring Boot</description>
 
 	<dependencies>
 		<dependency>

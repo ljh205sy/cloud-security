@@ -4,22 +4,25 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>com.microservice.skeleton</groupId>
-		<artifactId>Micro-Service-Skeleton-Parent</artifactId>
+		<groupId>com.vrv.vap</groupId>
+		<artifactId>cloud-security</artifactId>
 		<version>2.0.0</version>
 	</parent>
-	<artifactId>Micro-Service-Skeleton-Gateway</artifactId>
+	<artifactId>mss-gateway</artifactId>
 	<version>2.0.0</version>
 	<packaging>jar</packaging>
 
 	<name>mss-gateway</name>
-	<description>Demo project for Spring Boot</description>
 
 	<dependencies>
 		<dependency>
 			<groupId>cn.hutool</groupId>
 			<artifactId>hutool-all</artifactId>
 			<version>4.1.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-redis</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>

@@ -21,16 +21,40 @@ zuul:
       service-id: mss-oauth
       strip-prefix: true
       custom-sensitive-headers: true
+    auth-login-token:
+      path: /oauth/token
+      service-id: mss-oauth
+      strip-prefix: true
+      custom-sensitive-headers: true
+    auth-login-authorize:
+      path: /oauth/authorize
+      service-id: mss-oauth
+      strip-prefix: true
+      custom-sensitive-headers: true
+    auth-check-process:
+      path: /oauth/check_token
+      service-id: mss-oauth
+      strip-prefix: true
+      custom-sensitive-headers: true
+    mss-test:
+      sensitiveHeaders:
+      path: /mss-test/*
+      service-id: mss-test
+      strip-prefix: true
+      custom-sensitive-headers: true
 
 # 针对资源的直接使用http的处理请求方式， 重新userDetailsService接口，进行资源的权限认证。
 # mss-oauth 是注册到nacos中的服务名称，需要获取用户Authentication的信息
-security:
-  oauth2:
-    resource:
-      user-info-uri:  http://mss-oauth/user
-#      user-info-uri:  http://127.0.0.1:9060/user  # 可以使用nginx负载，也可以直接使用上面的，还可以直接使用某一个服务的接口调用
-      prefer-token-info: false
-      loadBalanced: true
+# 可以自定义oauth2的资源服务器进行验证处理， 这块如果不放开，就需要自己完善UserDetailsService接口，未验证 ????
+# https://www.jianshu.com/p/6dd03375224d      使用 DefaultTokenServices 在资源服务器本地配置令牌存储、解码、解析方式。 使用 RemoteTokenServices 资源服务器通过 HTTP 请求来解码令牌，每次都请求授权服务器端点 /oauth/check_token
+# 可以用代码实现，使用redis，加入redis的依赖，然后同时在EnableResourceAdapter中进行加入redis的token策略
+#security:
+#  oauth2:
+#    resource:
+#      #      user-info-uri:  http://mss-oauth/user   #要获取请求令牌的身份验证，在mss-oauth服务器中会调用/user请求，可以打断点，每次都会重复请求。
+#      user-info-uri:  http://mss-oauth:9030/user  # 可以使用nginx负载，也可以直接使用上面的，还可以直接使用某一个服务的接口调用, 使用127.0.0.1:9030无效,必须使用服务名称才可以，否则有问题
+#      prefer-token-info: false
+#      loadBalanced: true
 ##############end#####################
 ####超时配置####
 ribbon:

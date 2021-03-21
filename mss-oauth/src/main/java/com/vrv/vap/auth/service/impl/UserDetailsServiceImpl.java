@@ -23,8 +23,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+
 /**
- * @author Mr.Yangxiufeng
+ * @author wh1107066
  */
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {

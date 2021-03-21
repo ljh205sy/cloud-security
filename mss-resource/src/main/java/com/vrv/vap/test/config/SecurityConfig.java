@@ -1,18 +1,14 @@
-package com.vrv.vap.gateway.config;
+package com.vrv.vap.test.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
-import org.springframework.http.MediaType;
-import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
@@ -22,11 +18,6 @@ import org.springframework.security.oauth2.provider.token.store.redis.RedisToken
 import org.springframework.security.web.AuthenticationEntryPoint;
 
 import javax.annotation.Resource;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.Writer;
 
 /**
  * @author Mr.Yangxiufeng
@@ -81,13 +72,13 @@ public class SecurityConfig extends ResourceServerConfigurerAdapter {
     public void configure(HttpSecurity http) throws Exception {
         // 包括token的生成与刷新操作
 //        http.authorizeRequests().antMatchers("/v2/api-docs","/oauth/token","/mss-oauth/oauth/token").permitAll();
-//        http.authorizeRequests().antMatchers("/v2/api-docs","/oauth/token").permitAll();
         http.authorizeRequests().antMatchers("/v2/api-docs", "/oauth/token", "/mss-oauth/oauth/token", "/oauth/authorize", "/oauth/check_token").permitAll();
         ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry registry = http.authorizeRequests();
         for (String au : AUTH_WHITELIST) {
             http.authorizeRequests().antMatchers(au).permitAll();
         }
         http.authorizeRequests().anyRequest().authenticated();
+        // @TODO 细力度的url请求鉴权
         registry.anyRequest().access("@permissionService.hasPermission(request,authentication)");
     }
 
@@ -103,56 +94,4 @@ public class SecurityConfig extends ResourceServerConfigurerAdapter {
                 .expressionHandler(expressionHandler)             // 本类中@bean实现 OAuth2WebSecurityExpressionHandler
                 .accessDeniedHandler(oAuth2AccessDeniedHandler); // 本类中@bean实现 OAuth2AccessDeniedHandler
     }
-
-    @Bean
-    public OAuth2WebSecurityExpressionHandler oAuth2WebSecurityExpressionHandler(ApplicationContext applicationContext) {
-        OAuth2WebSecurityExpressionHandler expressionHandler = new OAuth2WebSecurityExpressionHandler();
-        expressionHandler.setApplicationContext(applicationContext);
-        return expressionHandler;
-    }
-
-
-
-    /**
-     * 处理spring security oauth 处理失败返回消息格式
-     */
-    @Bean
-    public OAuth2AccessDeniedHandler oAuth2AccessDeniedHandler() {
-        return new OAuth2AccessDeniedHandler() {
-            @Override
-            public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException authException) throws IOException, ServletException {
-                response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-                try (
-                        Writer writer = response.getWriter()
-                ) {
-                    writer.write(objectMapper.writeValueAsString(authException.getMessage()));
-                    writer.flush();
-                }
-            }
-        };
-    }
-
-//    /**
-//     * 未登录，返回401
-//     *
-//     * @return
-//     */
-//    @Bean
-//    public AuthenticationEntryPoint authenticationEntryPoint() {
-//        return (request, response, authException) -> ResponseUtil.responseFailed(objectMapper, response, authException.getMessage());
-//    }
-
-    @Bean
-    public AuthenticationEntryPoint authenticationEntryPoint() {
-        return new AuthenticationEntryPoint(){
-            @Override
-            public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException e)
-                    throws IOException, ServletException {
-                logger.error("Responding with unauthorized error. Message:{}, url:{}", e.getMessage(), request.getRequestURI());
-                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "无授权访问，Unauthorized");
-            }
-        };
-    }
-
-
 }

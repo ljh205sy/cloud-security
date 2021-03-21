@@ -39,6 +39,7 @@
 		<module>mss-monitor</module>
 		<module>mss-upms</module>
         <module>mss-test</module>
+        <module>mss-resource</module>
     </modules>
 	<dependencies>
 		<!--Lombok-->

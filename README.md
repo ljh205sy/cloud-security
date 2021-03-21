@@ -76,8 +76,7 @@ Authorization:Bearer xxx
 # 先走UserDetailsService.java 接口的实现类，然后在进入目标请求Controller的方法体。
 ```
 
-<img src="./oauth2.assets/image-20210317141830223.png" alt="image-20210317141830223" style="zoom: 80%;" />
-
+![image-20210317141830223.png](oauth2.assets/image-20210317141830223.png)
 
 
 
@@ -87,8 +86,7 @@ Authorization:Bearer xxx
 ```shell
 http://localhost:9060/d00002?access_token=XXX
 ```
-
-<img src="./oauth2.assets/image-20210317142705832.png" alt="image-20210317142705832" style="zoom:80%;" />
+![image-20210317142705832.png](oauth2.assets/image-20210317142705832.png)
 
 针对zuul访问特殊说明：
 
